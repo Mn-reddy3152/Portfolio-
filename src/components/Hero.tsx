@@ -66,7 +66,7 @@ export function Hero() {
             className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16"
           >
             <Button size="lg" asChild className="bg-gradient-primary hover:shadow-glow transition-all duration-300 group">
-              <a href="/resume.pdf" download>
+              <a href="/Resume.pdf" download>
                 <Download className="mr-2 h-5 w-5 group-hover:animate-bounce" />
                 Download Resume
               </a>
