@@ -54,7 +54,7 @@ export function Header() {
             transition={{ delay: 0.2 }}
           >
             <a href="#home" className="text-2xl font-bold gradient-text">
-              Nagi Reddy M
+              Nagi Reddy Munamulla
             </a>
           </motion.div>
 
