@@ -25,13 +25,100 @@ const socialLinks = [
 export function Header() {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [activeSection, setActiveSection] = useState<string>('#home')
+  const [scrollProgress, setScrollProgress] = useState(0)
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50)
+      const doc = document.documentElement
+      const total = doc.scrollHeight - doc.clientHeight
+      const current = doc.scrollTop
+      // const pct = total > 0 ? Math.min(100, Math.max(0, (current / total) * 100)) : 0
+      // setScrollProgress(pct)
     }
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  // Fallback scroll-spy based on section positions for reliability
+  useEffect(() => {
+    const sectionIds = navItems
+      .map((item) => (item.href.startsWith('#') ? item.href.slice(1) : ''))
+      .filter(Boolean)
+
+    const handle = () => {
+      const referenceOffset = 120 // approx header + padding
+      let bestId = activeSection
+      let bestScore = Number.POSITIVE_INFINITY
+
+      sectionIds.forEach((id) => {
+        const el = document.getElementById(id)
+        if (!el) return
+        const rect = el.getBoundingClientRect()
+        // Prefer sections near the top but still on screen
+        const score = Math.abs(rect.top - referenceOffset)
+        const isOnScreen = rect.bottom > 120 && rect.top < window.innerHeight * 0.8
+        if (isOnScreen && score < bestScore) {
+          bestScore = score
+          bestId = `#${id}`
+        }
+      })
+
+      if (bestId !== activeSection) setActiveSection(bestId)
+    }
+
+    handle()
+    window.addEventListener('scroll', handle, { passive: true })
+    window.addEventListener('resize', handle)
+    return () => {
+      window.removeEventListener('scroll', handle)
+      window.removeEventListener('resize', handle)
+    }
+  }, [activeSection])
+
+  useEffect(() => {
+    const sectionIds = navItems
+      .map((item) => (item.href.startsWith('#') ? item.href.slice(1) : ''))
+      .filter(Boolean)
+
+    const sections = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => Boolean(el))
+
+    let mostVisibleId = activeSection
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // Pick the entry with the highest intersection ratio
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)
+
+        if (visible.length > 0) {
+          const top = visible[0]
+          const id = `#${top.target.id}`
+          if (id !== mostVisibleId) {
+            mostVisibleId = id
+            setActiveSection(id)
+          }
+        }
+      },
+      { root: null, rootMargin: '0px 0px -50% 0px', threshold: [0.25, 0.5, 0.75, 1] }
+    )
+
+    sections.forEach((section) => observer.observe(section))
+
+    // Set initial active on mount
+    const fromHash = window.location.hash
+    if (fromHash && sectionIds.includes(fromHash.slice(1))) {
+      setActiveSection(fromHash)
+    }
+
+    return () => {
+      sections.forEach((section) => observer.unobserve(section))
+      observer.disconnect()
+    }
   }, [])
 
   return (
@@ -41,10 +128,12 @@ export function Header() {
       transition={{ duration: 0.5 }}
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
         scrolled 
-          ? 'glass-card shadow-custom-md' 
+          ? 'glass-card shadow-custom-md backdrop-blur-md bg-background/60' 
           : 'bg-transparent'
       }`}
     >
+      {/* Scroll progress bar */}
+      <div className="absolute left-0 top-0 h-1 bg-primary transition-[width] duration-200" style={{ width: `${scrollProgress}%` }} />
       <nav className="container-custom mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
@@ -64,10 +153,15 @@ export function Header() {
               <motion.a
                 key={item.name}
                 href={item.href}
+                onClick={() => setActiveSection(item.href)}
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 * index }}
-                className="text-foreground/80 hover:text-primary transition-colors duration-200 font-medium"
+                className={`${
+                  activeSection === item.href
+                    ? 'text-primary relative after:content-[""] after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-full after:bg-primary'
+                    : 'text-foreground/80 hover:text-primary relative after:content-[""] after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-0 hover:after:w-full after:bg-primary after:transition-[width] after:duration-300'
+                } transition-colors duration-200 font-medium`}
               >
                 {item.name}
               </motion.a>
@@ -127,7 +221,11 @@ export function Header() {
                   key={item.name}
                   href={item.href}
                   onClick={() => setIsOpen(false)}
-                  className="text-foreground/80 hover:text-primary transition-colors duration-200 font-medium py-2"
+                  className={`${
+                    activeSection === item.href
+                      ? 'text-primary relative after:content-[""] after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-full after:bg-primary'
+                      : 'text-foreground/80 hover:text-primary relative after:content-[""] after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-primary after:transition-[width] after:duration-300'
+                  } transition-colors duration-200 font-medium py-2`}
                 >
                   {item.name}
                 </a>
