@@ -3,6 +3,8 @@ import { motion } from 'framer-motion'
 import { Menu, X, Github, Linkedin, Mail } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { ThemeToggle } from './ThemeToggle'
+import { ArrowDown, Download, Send } from 'lucide-react'
+
 
 const navItems = [
   { name: 'Home', href: '#home' },
@@ -74,7 +76,7 @@ export function Header() {
 
           {/* Desktop Social Links & Theme Toggle */}
           <div className="hidden md:flex items-center space-x-4">
-            {socialLinks.map((link, index) => (
+            {/* {socialLinks.map((link, index) => (
               <motion.a
                 key={link.name}
                 href={link.href}
@@ -89,7 +91,12 @@ export function Header() {
                   <link.icon className="h-5 w-5" />
                 </Button>
               </motion.a>
-            ))}
+            ))} */}
+            <Button size="sm" asChild className="bg-gradient-primary hover:shadow-glow transition-all duration-300 group">
+              <a href="/Resume.pdf" download>
+                <Download className="mr-1 h-5 w-5 group-hover:animate-bounce" />Resume
+              </a>
+            </Button>
             <ThemeToggle />
           </div>
 
@@ -126,7 +133,7 @@ export function Header() {
                 </a>
               ))}
               <div className="flex items-center space-x-4 pt-4 border-t border-border">
-                {socialLinks.map((link) => (
+                {/* {socialLinks.map((link) => (
                   <a
                     key={link.name}
                     href={link.href}
@@ -138,7 +145,13 @@ export function Header() {
                       <link.icon className="h-5 w-5" />
                     </Button>
                   </a>
-                ))}
+                ))} */}
+              <Button size="sm" asChild className="bg-gradient-primary hover:shadow-glow transition-all duration-300 group">
+              <a href="/Resume.pdf" download>
+                <Download className="mr-1 h-5 w-5 group-hover:animate-bounce" />
+                Resume
+              </a>
+            </Button>
               </div>
             </div>
           </motion.div>
