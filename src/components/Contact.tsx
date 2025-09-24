@@ -50,15 +50,19 @@ export function Contact() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // Here you would typically handle form submission
-    console.log('Form submitted:', formData)
-    // Reset form after submission
+    const to = 'nagireddymunamulla@gmail.com'
+    const subject = encodeURIComponent(`${formData.subject} — from ${formData.name}`)
+    const body = encodeURIComponent(
+      `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
+    )
+    const mailto = `mailto:${to}?subject=${subject}&body=${body}`
+    window.location.href = mailto
     setFormData({ name: '', email: '', subject: '', message: '' })
   }
 
   return (
     <section id="contact" className="section-padding bg-muted/30">
-      <div className="container-custom">
+      <div className="container-custom max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -75,14 +79,14 @@ export function Contact() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           {/* Contact Information */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="space-y-6"
+            className="space-y-6 w-full"
           >
             <h3 className="text-2xl font-semibold mb-6">Contact Information</h3>
             
@@ -123,7 +127,7 @@ export function Contact() {
               viewport={{ once: true }}
               transition={{ delay: 0.4, duration: 0.6 }}
             >
-              <Card className="glass-card">
+                <Card className="glass-card w-full">
                 <CardContent className="p-4">
                   <div className="flex items-center gap-4">
                     <div className="p-2 rounded-full bg-gradient-primary/10">
@@ -145,9 +149,9 @@ export function Contact() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="lg:col-span-2"
+            className="lg:col-span-2 w-full"
           >
-            <Card className="glass-card">
+            <Card className="glass-card w-full mt-14">
               <CardHeader>
                 <CardTitle className="text-2xl">Send me a message</CardTitle>
               </CardHeader>
@@ -207,7 +211,7 @@ export function Contact() {
                       value={formData.message}
                       onChange={handleInputChange}
                       placeholder="Your message here..."
-                      rows={6}
+                      rows={4}
                       required
                     />
                   </div>

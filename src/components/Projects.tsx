@@ -20,27 +20,27 @@ const projects = [
     category: 'Full Stack Web App',
     status: 'Completed'
   },
-  {
-    title: 'Personal Portfolio Website',
-    description: 'A responsive personal portfolio website showcasing skills, projects, and experience. Built with modern web technologies and featuring smooth animations and interactive elements.',
-    technologies: ['HTML5', 'CSS3', 'JavaScript', 'Responsive Design'],
-    features: [
-      'Responsive design',
-      'Interactive animations',
-      'Contact form integration',
-      'Project showcase',
-      'Skills visualization',
-      'Mobile-first approach'
-    ],
-    category: 'Frontend Web App',
-    status: 'Completed'
-  }
+  // {
+  //   title: 'Personal Portfolio Website',
+  //   description: 'A responsive personal portfolio website showcasing skills, projects, and experience. Built with modern web technologies and featuring smooth animations and interactive elements.',
+  //   technologies: ['HTML5', 'CSS3', 'JavaScript', 'Responsive Design'],
+  //   features: [
+  //     'Responsive design',
+  //     'Interactive animations',
+  //     'Contact form integration',
+  //     'Project showcase',
+  //     'Skills visualization',
+  //     'Mobile-first approach'
+  //   ],
+  //   category: 'Frontend Web App',
+  //   status: 'Completed'
+  // }
 ]
 
 export function Projects() {
   return (
     <section id="projects" className="section-padding">
-      <div className="container-custom">
+      <div className="container-custom ">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
