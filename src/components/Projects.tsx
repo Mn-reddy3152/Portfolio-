@@ -21,6 +21,20 @@ const projects = [
     status: 'Completed'
   },
   // {
+  //   title: 'Portfolio Website',
+  //   description: 'A responsive, animated portfolio built with React, Tailwind CSS, and shadcn/ui. Features include theme switching, section scroll-spy, resume viewer, and accessibility‑friendly components.',
+  //   technologies: ['React.js', 'TypeScript', 'Tailwind CSS', 'shadcn/ui', 'Framer Motion'],
+  //   features: [
+  //     'Responsive layout and accessible components',
+  //     'Dark/light theme with system preference',
+  //     'Animated sections and scroll progress',
+  //     'Resume preview with PDF download',
+  //     'Contact form (mailto)'
+  //   ],
+  //   category: 'Frontend Web App',
+  //   status: 'Completed'
+  // },
+  // {
   //   title: 'Personal Portfolio Website',
   //   description: 'A responsive personal portfolio website showcasing skills, projects, and experience. Built with modern web technologies and featuring smooth animations and interactive elements.',
   //   technologies: ['HTML5', 'CSS3', 'JavaScript', 'Responsive Design'],
@@ -57,7 +71,7 @@ export function Projects() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-1 gap-8">
           {projects.map((project, index) => (
             <motion.div
               key={project.title}

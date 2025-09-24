@@ -13,13 +13,14 @@ const navItems = [
   { name: 'Experience', href: '#experience' },
   { name: 'Projects', href: '#projects' },
   { name: 'Certifications', href: '#certifications' },
+  // { name: 'Resume', href: '#resume' },
   { name: 'Contact', href: '#contact' },
 ]
 
 const socialLinks = [
-  { name: 'LinkedIn', href: 'https://linkedin.com/in/nagireddy-munamulla', icon: Linkedin },
-  { name: 'GitHub', href: 'https://github.com/Mn-reddy3152', icon: Github },
-  { name: 'Email', href: 'mailto:nagireddymunamulla@gmail.com', icon: Mail },
+  // { name: 'LinkedIn', href: 'https://linkedin.com/in/nagireddy-munamulla', icon: Linkedin },
+  // { name: 'GitHub', href: 'https://github.com/Mn-reddy3152', icon: Github },
+  // { name: 'Email', href: 'mailto:nagireddymunamulla@gmail.com', icon: Mail },
 ]
 
 export function Header() {
@@ -170,7 +171,7 @@ export function Header() {
 
           {/* Desktop Social Links & Theme Toggle */}
           <div className="hidden md:flex items-center space-x-4">
-            {/* {socialLinks.map((link, index) => (
+            {socialLinks.map((link, index) => (
               <motion.a
                 key={link.name}
                 href={link.href}
@@ -185,9 +186,9 @@ export function Header() {
                   <link.icon className="h-5 w-5" />
                 </Button>
               </motion.a>
-            ))} */}
+            ))}
             <Button size="sm" asChild className="bg-gradient-primary hover:shadow-glow transition-all duration-300 group">
-              <a href="/Resume.pdf" download>
+              <a href="/Nagi_Reddy_Resume.pdf" download>
                 <Download className="mr-1 h-5 w-5 group-hover:animate-bounce" />Resume
               </a>
             </Button>
@@ -231,7 +232,7 @@ export function Header() {
                 </a>
               ))}
               <div className="flex items-center space-x-4 pt-4 border-t border-border">
-                {/* {socialLinks.map((link) => (
+                {socialLinks.map((link) => (
                   <a
                     key={link.name}
                     href={link.href}
@@ -243,9 +244,9 @@ export function Header() {
                       <link.icon className="h-5 w-5" />
                     </Button>
                   </a>
-                ))} */}
+                ))}
               <Button size="sm" asChild className="bg-gradient-primary hover:shadow-glow transition-all duration-300 group">
-              <a href="/Resume.pdf" download>
+              <a href="/Nagi_Reddy_Resume.pdf" download>
                 <Download className="mr-1 h-5 w-5 group-hover:animate-bounce" />
                 Resume
               </a>

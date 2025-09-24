@@ -22,9 +22,7 @@ export function Footer() {
             transition={{ duration: 0.6 }}
             className="mb-8"
           >
-            <h3 className="text-2xl font-bold gradient-text mb-2">
-              Nagi Reddy Munamulla
-            </h3>
+            <h3 className="text-2xl font-bold gradient-text mb-2">Nagi Reddy Munamulla</h3>
             <p className="text-muted-foreground">
               Full Stack Developer | MCA Student | Technology Enthusiast
             </p>
@@ -56,6 +54,23 @@ export function Footer() {
                 <span className="sr-only">{link.name}</span>
               </motion.a>
             ))}
+          </motion.div>
+
+          {/* CTA + Copyright */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="mb-6"
+          >
+            <a
+              href="/Nagi_Reddy_Resume.pdf"
+              download
+              className="inline-flex items-center px-4 py-2 rounded-md bg-gradient-primary text-primary-foreground hover:shadow-glow"
+            >
+              Download Resume
+            </a>
           </motion.div>
 
           {/* Copyright */}

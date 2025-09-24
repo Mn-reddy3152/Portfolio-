@@ -1,13 +1,16 @@
 import { motion } from 'framer-motion'
-import { ArrowDown, Download, Send } from 'lucide-react'
+import { ArrowDown, Download, Send , FileText} from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { ParticleBackground } from './ParticleBackground'
 import profilePhoto from '@/assets/one.png'
 
 export function Hero() {
+  const pdfUrl = '/Nagi_Reddy_Resume.pdf'
   return (
     <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 bg-gradient-hero opacity-50" />
+      <ParticleBackground />
       <div className="absolute inset-0">
         <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-primary/20 rounded-full blur-3xl animate-float" />
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary/20 rounded-full blur-3xl animate-float" style={{ animationDelay: '-1s' }} />
@@ -41,9 +44,7 @@ export function Hero() {
             transition={{ delay: 0.3, duration: 0.8 }}
             className="text-5xl md:text-7xl font-bold mb-6"
           >
-            <span className="gradient-text">Nagi Reddy</span>
-            <br />
-            <span className="text-foreground">Munamulla</span>
+            <span className="gradient-text">Nagi Reddy Munamulla</span>
           </motion.h1>
 
           {/* Subtitle */}
@@ -53,9 +54,9 @@ export function Hero() {
             transition={{ delay: 0.5, duration: 0.8 }}
             className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed"
           >
-            MCA student and aspiring{' '}
-            <span className="gradient-text font-semibold">Full Stack Developer</span>{' '}
-            skilled in Java, Python, Web Development, and Databases. Passionate about building impactful projects.
+            Full Stack Developer (React, Node.js, MongoDB) and MCA student with hands‑on
+            experience building scalable apps, REST APIs, and beautiful UIs. Passionate
+            about data, clean architecture, and shipping fast.
           </motion.p>
 
           {/* Call to Action Buttons */}
@@ -65,16 +66,21 @@ export function Hero() {
             transition={{ delay: 0.7, duration: 0.8 }}
             className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16"
           >
+            <Button size="lg" asChild variant="outline">
+                <a href={pdfUrl} target="_blank" rel="noopener noreferrer">
+                  <FileText className="mr-2 h-4 w-4" /> Preview
+                </a>
+              </Button>
             <Button size="lg" asChild className="bg-gradient-primary hover:shadow-glow transition-all duration-300 group">
-              <a href="/Resume.pdf" download>
+              <a href="/Nagi_Reddy_Resume.pdf" download>
                 <Download className="mr-2 h-5 w-5 group-hover:animate-bounce" />
-                Download Resume
+                Resume
               </a>
             </Button>
-            <Button size="lg" variant="outline" className="hover-glow group">
+            {/* <Button size="lg" variant="outline" className="hover-glow group">
               <Send className="mr-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               <a href="#contact">Contact Me</a>
-            </Button>
+            </Button> */}
           </motion.div>
 
           {/* Scroll Indicator */}

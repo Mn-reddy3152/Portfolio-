@@ -15,18 +15,18 @@ const education = [
     period: '2021 – 2024',
     status: 'completed'
   },
-  {
-    degree: 'Intermediate (MPC)',
-    institution: 'Vasavi Vignan Jr. College',
-    period: '2019 – 2021',
-    status: 'completed'
-  },
-  {
-    degree: 'Secondary School Certificate (SSC)',
-    institution: 'ZPP High School',
-    period: '2018 – 2019',
-    status: 'completed'
-  }
+  // {
+  //   degree: 'Intermediate (MPC)',
+  //   institution: 'Vasavi Vignan Jr. College',
+  //   period: '2019 – 2021',
+  //   status: 'completed'
+  // },
+  // {
+  //   degree: 'Secondary School Certificate (SSC)',
+  //   institution: 'ZPP High School',
+  //   period: '2018 – 2019',
+  //   status: 'completed'
+  // }
 ]
 
 export function About() {

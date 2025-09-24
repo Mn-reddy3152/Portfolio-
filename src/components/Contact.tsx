@@ -40,6 +40,8 @@ export function Contact() {
     subject: '',
     message: ''
   })
+  const [sending, setSending] = useState(false)
+  const [feedback, setFeedback] = useState<string | null>(null)
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -48,16 +50,38 @@ export function Contact() {
     })
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    const to = 'nagireddymunamulla@gmail.com'
-    const subject = encodeURIComponent(`${formData.subject} — from ${formData.name}`)
-    const body = encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
-    )
-    const mailto = `mailto:${to}?subject=${subject}&body=${body}`
-    window.location.href = mailto
-    setFormData({ name: '', email: '', subject: '', message: '' })
+    try {
+      setSending(true)
+      setFeedback(null)
+      // Send via FormSubmit (serverless email forwarding)
+      const response = await fetch('https://formsubmit.co/ajax/nagireddymunamulla@gmail.com', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+          _subject: `${formData.subject} — from ${formData.name}`,
+          _captcha: 'true'
+        })
+      })
+
+      if (!response.ok) throw new Error('Failed to send')
+      const result = await response.json()
+      if (result?.success) {
+        setFeedback('Message sent successfully! I will get back to you soon.')
+        setFormData({ name: '', email: '', subject: '', message: '' })
+      } else {
+        throw new Error('Send failed')
+      }
+    } catch (err) {
+      setFeedback('Could not send message. Please try again or email me directly.')
+    } finally {
+      setSending(false)
+    }
   }
 
   return (
@@ -219,11 +243,15 @@ export function Contact() {
                   <Button 
                     type="submit" 
                     size="lg" 
-                    className="w-full bg-gradient-primary hover:shadow-glow transition-all duration-300 group"
+                    disabled={sending}
+                    className="w-full bg-gradient-primary hover:shadow-glow transition-all duration-300 group disabled:opacity-60"
                   >
                     <Send className="mr-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                    Send Message
+                    {sending ? 'Sending...' : 'Send Message'}
                   </Button>
+                  {feedback && (
+                    <p className="text-sm text-muted-foreground text-center pt-2">{feedback}</p>
+                  )}
                 </form>
               </CardContent>
             </Card>
